@@ -1,30 +1,41 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:lending_zaim/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('Lending 1 Tests', () {
+    testWidgets('Lending 1 has all the right elements', (widgetTester) async {
+      await widgetTester
+          .pumpWidget(const MaterialApp(home: LendingButtonPage()));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      var headingWidget = find.byKey(Key('heading'));
+      var contentWidget = find.byKey(Key('content'));
+      var buttonWidget = find.byKey(Key('button'));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      expect(headingWidget, findsOneWidget);
+      expect(contentWidget, findsOneWidget);
+      expect(buttonWidget, findsOneWidget);
+    });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    testWidgets('buttons are functional', (widgetTester) async {
+      int buttonTap = 0;
+
+      await widgetTester.pumpWidget(
+        MaterialApp(
+          home: GestureDetector(
+            key: Key('button'),
+            onTap: () {
+              buttonTap++;
+            },
+          ),
+        ),
+      );
+
+      var buttonWidget = find.byKey(Key('button'));
+      expect(buttonTap, 0);
+
+      await widgetTester.tap(buttonWidget);
+      expect(buttonTap, 1);
+    });
   });
 }

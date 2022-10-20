@@ -1,8 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lending_zaim">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.merchant_experience_app">
     <!-- The INTERNET permission is required for development. Specifically,
          the Flutter tool needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <meta-data
+        tools:replace="android:value"
+        android:name="CLEVERTAP_ACCOUNT_ID"
+        android:value="TEST-Z6Z-469-556Z"/>
+    <meta-data
+        tools:replace="android:value"
+        android:name="CLEVERTAP_TOKEN"
+        android:value="TEST-c64-161"/>
 </manifest>
