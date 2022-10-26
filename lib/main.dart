@@ -12,17 +12,14 @@ void main() {
 // Instant Credit Button State
 bool icButtonActive = true;
 
-Color icBorderColor = Colors.green;
-Color erBorderColor = Color(0xF979797);
+double chosenOption = -1.0;
 
 // Green Bar Positioning
 void updateColour(bool buttonState) {
   if (icButtonActive == true) {
-    icBorderColor = Colors.green;
-    erBorderColor = Color(0xF979797);
+    chosenOption = -1.0;
   } else {
-    icBorderColor = Color(0xF979797);
-    erBorderColor = Colors.green;
+    chosenOption = 1.0;
   }
 }
 
@@ -60,8 +57,7 @@ class _LendingButtonPageState extends State<LendingButtonPage> {
                     image: 'assets/images/lending_icon_1.png',
                     type: 'Instant Credit',
                     description:
-                    'Withdraw as little as Rs 10000 or up to your  entire limit',
-                    optionColor: icBorderColor,
+                        'Withdraw as little as Rs 10000 or up to your  entire limit',
                   ),
                 ),
               ),
@@ -77,12 +73,16 @@ class _LendingButtonPageState extends State<LendingButtonPage> {
                     image: 'assets/images/lending_icon_2.png',
                     type: 'Easy Repayments',
                     description:
-                    'Pay interest only on the portion of the loan you use, when you use it, and for the duration you use it',
-                    optionColor: erBorderColor,
+                        'Pay interest only on the portion of the loan you use, when you use it, and for the duration you use it',
                   ),
                 ),
               ),
             ],
+          ),
+          Center(
+            child: OptionBar(
+              chosenOption: chosenOption,
+            ),
           ),
         ],
       ),
@@ -97,13 +97,11 @@ class LendingButtonCard extends StatelessWidget {
     required this.image,
     required this.type,
     required this.description,
-    required this.optionColor,
   }) : super(key: key);
 
   final String image;
   final String type;
   final String description;
-  Color optionColor;
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +127,39 @@ class LendingButtonCard extends StatelessWidget {
               style: StyleConstants.heading4(),
             ),
           ),
-          SizedBox(
-            width: 130,
-            height: 3,
-            child: ColoredBox(color: optionColor),
-          )
+        ],
+      ),
+    );
+  }
+}
+
+class OptionBar extends StatelessWidget {
+
+  final double chosenOption;
+
+  const OptionBar({
+    Key? key,
+    required this.chosenOption
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 3,
+      width: 335,
+      child: Stack(
+        children: [
+          Container(
+            color: Color(0xF979797),
+          ),
+          Align(
+            alignment: Alignment(chosenOption, 0),
+            child: Container(
+              width: 143,
+              height: 3,
+              color: Colors.green,
+            ),
+          ),
         ],
       ),
     );
