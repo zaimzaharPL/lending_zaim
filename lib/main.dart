@@ -45,7 +45,7 @@ class _LendingButtonPageState extends State<LendingButtonPage> {
             key: Key('content'),
             children: <Widget>[
               Expanded(
-                key: Key('button'),
+                key: Key('icButton'),
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
@@ -63,6 +63,7 @@ class _LendingButtonPageState extends State<LendingButtonPage> {
               ),
               Expanded(
                 child: GestureDetector(
+                  key: Key('erButton'),
                   onTap: () {
                     setState(() {
                       icButtonActive = false;
